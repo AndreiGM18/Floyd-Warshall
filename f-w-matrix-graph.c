@@ -19,11 +19,11 @@ typedef struct
  * Initializeaza graful cu numarul de noduri primit ca parametru si aloca
  * memorie pentru matricea de adiacenta a grafului.
  */
- 
+
 /* Graful este ORIENTAT */
- 
+
 /* Nodurile sunt indexate de la 0.*/
- 
+
 matrix_graph_t*
 mg_create(int nodes)
 {
@@ -73,7 +73,7 @@ void
 mg_remove_edge(matrix_graph_t* graph, int src, int dest)
 {
 	if (src != dest)
-    	graph->matrix[src][dest] = INF;
+	graph->matrix[src][dest] = INF;
 }
 
 /* Elibereaza memoria folosita de matricea de adiacenta a grafului */
@@ -205,7 +205,7 @@ floyd_warshall_matrix(matrix_graph_t *mg)
 	int **paths;
 
 	init_f_w(mg, &d, &paths);
-	
+
 	for (int k = 0; k < mg->nodes; ++k) {
 		for (int i = 0; i < mg->nodes; ++i) {
 			for (int j = 0; j < mg->nodes; ++j) {
@@ -230,82 +230,82 @@ int main(void)
     matrix_graph_t *mg = NULL;
 
     while (1) {
-        char command[MAX_STRING_SIZE];
-        int nr1, nr2, cost;
-        int nr_nodes;
+	char command[MAX_STRING_SIZE];
+	int nr1, nr2, cost;
+	int nr_nodes;
 
-        scanf("%s", command);
+	scanf("%s", command);
 
-        if (strncmp(command, "create_mg", 9) == 0) {
-            scanf("%d", &nr_nodes);
-            mg = mg_create(nr_nodes);
-        }
+	if (strncmp(command, "create_mg", 9) == 0) {
+	    scanf("%d", &nr_nodes);
+	    mg = mg_create(nr_nodes);
+	}
 
-        if (strncmp(command, "add_edge", 8) == 0) {
-            if (mg != NULL) {
-                scanf("%d %d %d", &nr1, &nr2, &cost);
+	if (strncmp(command, "add_edge", 8) == 0) {
+	    if (mg != NULL) {
+		scanf("%d %d %d", &nr1, &nr2, &cost);
 
-                mg_add_edge(mg, nr1, nr2, cost);
-            } else {
-                printf("Create a graph first!\n");
-                exit(0);
-            }
-        }
+		mg_add_edge(mg, nr1, nr2, cost);
+	    } else {
+		printf("Create a graph first!\n");
+		exit(0);
+	    }
+	}
 
-        if (strncmp(command, "remove_edge", 11) == 0) {
-            if (mg != NULL) {
-                scanf("%d %d", &nr1, &nr2);
-                mg_remove_edge(mg, nr1, nr2);
-            } else {
-                printf("Create a graph first!\n");
-                exit(0);
-            }
-        }
+	if (strncmp(command, "remove_edge", 11) == 0) {
+	    if (mg != NULL) {
+		scanf("%d %d", &nr1, &nr2);
+		mg_remove_edge(mg, nr1, nr2);
+	    } else {
+		printf("Create a graph first!\n");
+		exit(0);
+	    }
+	}
 
-        if (strncmp(command, "print_graph", 11) == 0) {
-            if (mg != NULL) {
-                print_matrix_graph(mg);
-            } else {
-                printf("Create a graph first!\n");
-                exit(0);
-            }
-        }
+	if (strncmp(command, "print_graph", 11) == 0) {
+	    if (mg != NULL) {
+		print_matrix_graph(mg);
+	    } else {
+		printf("Create a graph first!\n");
+		exit(0);
+	    }
+	}
 
-        if (strncmp(command, "has_edge", 8) == 0) {
-            if (mg != NULL) {
-                int flag;
-                scanf("%d %d", &nr1, &nr2);
-                flag = mg_has_edge(mg, nr1, nr2);
-                if (flag == 1) {
-                    printf("Has edge\n");
-                }
-                else if (flag == 0) {
-                    printf("No edge\n");
-                }
-            } else {
-                printf("Create a graph first!\n");
-                exit(0);
-            }
-        }
-
-		if (strncmp(command, "f-w", 3) == 0) {
-			if (mg != NULL) {
-				floyd_warshall_matrix(mg);
-			} else {
-				printf("Create a graph first!\n");
-                exit(0);
-			}
+	if (strncmp(command, "has_edge", 8) == 0) {
+	    if (mg != NULL) {
+		int flag;
+		scanf("%d %d", &nr1, &nr2);
+		flag = mg_has_edge(mg, nr1, nr2);
+		if (flag == 1) {
+		    printf("Has edge\n");
 		}
+		else if (flag == 0) {
+		    printf("No edge\n");
+		}
+	    } else {
+		printf("Create a graph first!\n");
+		exit(0);
+	    }
+	}
 
-        if (strncmp(command, "free", 4) == 0) {
-            if (mg != NULL) {
-                mg_free(mg);
-            } else {
-                printf("Create a graph first!\n");
-                exit(0);
-            }
-            break;
-        }
+	if (strncmp(command, "f-w", 3) == 0) {
+		if (mg != NULL) {
+			floyd_warshall_matrix(mg);
+		} else {
+			printf("Create a graph first!\n");
+	exit(0);
+		}
+	}
+
+	if (strncmp(command, "free", 4) == 0) {
+	    if (mg != NULL) {
+		mg_free(mg);
+	    } else {
+		printf("Create a graph first!\n");
+		exit(0);
+	    }
+	    break;
+	}
     }
 
     return 0;
