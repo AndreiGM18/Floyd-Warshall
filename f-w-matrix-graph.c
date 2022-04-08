@@ -293,7 +293,7 @@ int main(void)
 			floyd_warshall_matrix(mg);
 		} else {
 			printf("Create a graph first!\n");
-	exit(0);
+			exit(0);
 		}
 	}
 
